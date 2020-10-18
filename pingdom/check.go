@@ -3,6 +3,7 @@ package pingdom
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"strconv"
 )
 
@@ -109,7 +110,8 @@ func (cs *CheckService) Update(id int, check Check) (*PingdomResponse, error) {
 	}
 
 	m := &PingdomResponse{}
-	_, err = cs.client.Do(req, m)
+	resp, err := cs.client.Do(req, m)
+	log.Printf("Debug response: %+v", resp)
 	if err != nil {
 		return nil, err
 	}
